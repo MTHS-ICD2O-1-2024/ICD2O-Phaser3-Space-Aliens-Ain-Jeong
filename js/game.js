@@ -1,4 +1,4 @@
-/*global Phaser */
+/* global Phaser */
 
 // Copyright (c) 2025 Ain Jeong All rights reserved
 //
