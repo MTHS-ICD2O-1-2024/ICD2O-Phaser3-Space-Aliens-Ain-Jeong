@@ -16,7 +16,7 @@ class TitleScene extends Phaser.Scene {
   constructor () {
     super({ key: 'titleScene' })
   }
- 
+
   /**
      * Can be defined on your own Scenes.
      * This method is called by the Scene Manager when the scene starts,
@@ -55,4 +55,4 @@ class TitleScene extends Phaser.Scene {
   }
 }
 
-  export default TitleScene
+export default TitleScene
