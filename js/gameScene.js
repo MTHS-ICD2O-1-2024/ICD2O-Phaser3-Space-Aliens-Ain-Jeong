@@ -20,7 +20,8 @@ class GameScene extends Phaser.Scene {
     anAlien.body.velocity.x = alienXVelocity
     this.alienGroup.add(anAlien)
   }
-  constructor() {
+
+  constructor () {
     super({ key: 'gameScene' })
 
     this.background = null
