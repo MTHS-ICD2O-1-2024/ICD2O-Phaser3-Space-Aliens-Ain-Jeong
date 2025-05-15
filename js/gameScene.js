@@ -20,7 +20,7 @@ class GameScene extends Phaser.Scene {
     anAlien.body.velocity.x = alienXVelocity
     this.alienGroup.add(anAlien)
   }
-  constructor () {
+  constructor() {
     super({ key: 'gameScene' })
 
     this.background = null
@@ -34,7 +34,7 @@ class GameScene extends Phaser.Scene {
    *  before preload() and create().
    * @param {object} data - Any data passed via ScenePlugin.add() or ScenePlugin.start().
    */
-  init(data) {
+  init (data) {
     this.cameras.main.setBackgroundColor('ffffff')
   }
 
@@ -60,7 +60,7 @@ class GameScene extends Phaser.Scene {
    * Use it to create your game objects.
    * @param {object} data - Any data passed via ScenePlugin.add() or ScenePlugin.start().
    */
-  create(data) {
+  create (data) {
     this.background = this.add.image(0, 0, 'starBackground').setScale(2.0)
     this.background.setOrigin(0, 0)
 
@@ -80,7 +80,7 @@ class GameScene extends Phaser.Scene {
    *  @param {number} time - The current time.
    *  @param {number} delta - The delta time in ms since the last frame.
    */
-  update(time, delta) {
+  update (time, delta) {
     // called 60 times a second, hopefully!
 
     const keyLeftObj = this.input.keyboard.addKey('LEFT')
