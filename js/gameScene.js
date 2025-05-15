@@ -7,12 +7,19 @@
 // This is the Phaser3 game configuration file
 
 /**
-* This class is the Game Scene.
-*/
+ * This class is the Game Scene.
+ */
 class GameScene extends Phaser.Scene {
-  /**
-  * This method is the constructor.
-  */
+  // create an alien
+  createAlien () {
+    const alienXLocation = Math.floor(Math.random() * 1920) + 1
+    let alienXVelocity = Math.floor(Math.random() * 50) + 1
+    alienXVelocity *= Math.round(Math.random()) ? 1 : -1
+    const anAlien = this.physics.add.sprite(alienXLocation, -100, 'alien')
+    anAlien.body.velocity.y = 200
+    anAlien.body.velocity.x = alienXVelocity
+    this.alienGroup.add(anAlien)
+  }
   constructor () {
     super({ key: 'gameScene' })
 
@@ -22,19 +29,19 @@ class GameScene extends Phaser.Scene {
   }
 
   /**
-  * Can be defined on your own Scenes.
-  * This method is called by the Scene Manager when the scene starts,
-  *  before preload() and create().
-  * @param {object} data - Any data passed via ScenePlugin.add() or ScenePlugin.start().
-  */
-  init (data) {
+   * Can be defined on your own Scenes.
+   * This method is called by the Scene Manager when the scene starts,
+   *  before preload() and create().
+   * @param {object} data - Any data passed via ScenePlugin.add() or ScenePlugin.start().
+   */
+  init(data) {
     this.cameras.main.setBackgroundColor('ffffff')
   }
 
   /**
-  * Can be defined on your own Scenes.
-  * Use it to load assets.
-  */
+   * Can be defined on your own Scenes.
+   * Use it to load assets.
+   */
   preload () {
     console.log('Game Scene')
 
@@ -42,17 +49,18 @@ class GameScene extends Phaser.Scene {
     this.load.image('starBackground', './assets/starBackground.png')
     this.load.image('ship', './assets/spaceShip.png')
     this.load.image('missile', './assets/missile.png')
+    this.load.imamge('alien', './assets/alien.png')
 
     // sound
     this.load.audio('laser', './assets/laser1.wav')
   }
 
   /**
-  * Can be defined on your own Scenes.
-  * Use it to create your game objects.
-  * @param {object} data - Any data passed via ScenePlugin.add() or ScenePlugin.start().
-  */
-  create (data) {
+   * Can be defined on your own Scenes.
+   * Use it to create your game objects.
+   * @param {object} data - Any data passed via ScenePlugin.add() or ScenePlugin.start().
+   */
+  create(data) {
     this.background = this.add.image(0, 0, 'starBackground').setScale(2.0)
     this.background.setOrigin(0, 0)
 
@@ -60,15 +68,19 @@ class GameScene extends Phaser.Scene {
 
     // create a group for the missiles
     this.missileGroup = this.physics.add.group()
+
+    // create a group for the aliens
+    this.alienGroup = this.add.group()
+    this.createAlien()
   }
 
   /**
-  * Should be overridden by your own Scenes.
-  * This method is called once per game step while the scene is running.
-  *  @param {number} time - The current time.
-  *  @param {number} delta - The delta time in ms since the last frame.
-  */
-  update (time, delta) {
+   * Should be overridden by your own Scenes.
+   * This method is called once per game step while the scene is running.
+   *  @param {number} time - The current time.
+   *  @param {number} delta - The delta time in ms since the last frame.
+   */
+  update(time, delta) {
     // called 60 times a second, hopefully!
 
     const keyLeftObj = this.input.keyboard.addKey('LEFT')
@@ -93,7 +105,11 @@ class GameScene extends Phaser.Scene {
       if (this.fireMissile === false) {
         // fire missile
         this.fireMissile = true
-        const aNewMissile = this.physics.add.sprite(this.ship.x, this.ship.y, 'missile')
+        const aNewMissile = this.physics.add.sprite(
+          this.ship.x,
+          this.ship.y,
+          'missile'
+        )
         this.missileGroup.add(aNewMissile)
         this.sound.play('laser')
       }
